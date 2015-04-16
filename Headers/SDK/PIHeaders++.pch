@@ -1,0 +1,54 @@
+/*********************************************************************
+
+ ADOBE SYSTEMS INCORPORATED
+ Copyright (C) 1996-2008 Adobe Systems Incorporated
+ All rights reserved.
+
+ NOTICE: Adobe permits you to use, modify, and distribute this file
+ in accordance with the terms of the Adobe license agreement
+ accompanying it. If you have received this file from a source other
+ than Adobe, then your use, modification, or distribution of it
+ requires the prior written permission of Adobe.
+
+ ---------------------------------------------------------------------
+
+ PIHeaders.pch
+
+ - .pch header file for Acrobat Plug-ins SDK.
+
+
+//*****************************************************************/
+
+#if !defined(REZ)
+
+#include <Carbon/Carbon.h>
+#include <ApplicationServices/ApplicationServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
+
+#define TARGET_API_MAC_OS8				0	/* use MacOS 8 resource calls */
+#define TARGET_API_MAC_CARBON			1	/* use Carbon MacOS */
+#define Platform_Carbon					1	/* use Carbon MacOS */
+#define _MSL_USING_MW_C_HEADERS 		1
+
+#define SAFE_MIUTILS					1			/* use safe string manipulation functions */
+#define ACRO_SDK_LEVEL					0x00090000	/* SDK version 9 */
+
+#ifndef READER_PLUGIN
+	#define PI_ACROCOLOR_VERSION			AcroColorHFT_VERSION_6
+#endif
+
+#include "PIHeaders.c"
+
+#endif
+
+
+#pragma precompile_target "AcrobatPIHeadersPCH++"
+
+#define PLATFORM "MacPlatform.h"
+#define PRODUCT "Plugin.h"
+#include "Environ.h"
+#include "PIHeaders.h"
+
+#undef PRAGMA_IMPORT
+#define PRAGMA_IMPORT 1

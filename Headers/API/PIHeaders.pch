@@ -1,0 +1,30 @@
+/*********************************************************************
+
+ ADOBE SYSTEMS INCORPORATED
+ Copyright (C) 1996-2006 Adobe Systems Incorporated
+ All rights reserved.
+
+ NOTICE: Adobe permits you to use, modify, and distribute this file
+ in accordance with the terms of the Adobe license agreement
+ accompanying it. If you have received this file from a source other
+ than Adobe, then your use, modification, or distribution of it
+ requires the prior written permission of Adobe.
+
+ ---------------------------------------------------------------------
+
+ PIHeaders.pch
+
+ - .pch header file for Acrobat Plug-ins SDK.
+
+*********************************************************************/
+
+#define ACRO_SDK_LEVEL  0x00090000
+#define Platform_Carbon 1
+
+#define PLATFORM "MacPlatform.h"
+#define PRODUCT "Plugin.h"
+#include "Environ.h"
+#include "PIHeaders.h"
+
+#undef PRAGMA_IMPORT
+#define PRAGMA_IMPORT 1
