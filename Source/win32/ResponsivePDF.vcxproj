@@ -65,7 +65,7 @@
     <Link>
       <AdditionalOptions>/EXPORT:PlugInMain %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>c:\Program Files (x86)\Adobe\Acrobat 11.0\Acrobat\plug_ins\BasicPlugin.api</OutputFile>
+      <OutputFile>c:\Program Files (x86)\Adobe\Acrobat 11.0\Acrobat\plug_ins\ResponsivePDF.api</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/BasicPlugin.pdb</ProgramDatabaseFile>

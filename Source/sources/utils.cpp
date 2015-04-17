@@ -272,7 +272,7 @@ ASBool GetFormBBox(CosObj inFormObj, ASFixedRect* outBBox)
       return false;
 }
 
-bool CreatePagesWithCurrentContent(PDDoc pdDoc, ASAtom target)
+bool PrepareDesignWithCurrentContent(PDDoc pdDoc, ASAtom target, ASDouble zoom)
 {
   DURING
     ASInt32 numPages = PDDocGetNumPages(pdDoc);
@@ -298,35 +298,17 @@ bool CreatePagesWithCurrentContent(PDDoc pdDoc, ASAtom target)
     CosObj cosLayout = CosNewDict(cosDoc, true, 0);
     CosArrayInsert(cosRespLayouts, 0, cosLayout);
     CosDictPut(cosLayout, ASAtomFromString("Zoom"), CosNewDouble(cosDoc, false, .4));
+    CosDictPut(cosLayout, ASAtomFromString("Name"), CosNewName(cosDoc, false, target));
     
     for (int i = numPages - 1; i >= 0; i--)
     {
-      PDPage pdPage = PDDocAcquirePage(pdDoc, i);
-      CosObj cosPage = PDPageGetCosObj(pdPage);
-
       //insert new page with the content of the original page
-      ASFixedRect mediaBox, cropBox;
-      PDPageGetMediaBox(pdPage, &mediaBox);
-      PDPageGetCropBox(pdPage, &cropBox);
-      PDRotate rotate = PDPageGetRotate(pdPage);
-
       PDDocInsertPages(pdDoc, i, pdDoc, i, 1, 0, NULL, NULL, NULL, NULL);
-
-      PDPage pdPage2 = PDDocAcquirePage(pdDoc, i+1);
-      CosObj cosPage2 = PDPageGetCosObj(pdPage2);
-      PDPageRelease(pdPage2);
-
-      //insert Resp dictionary
-      CosObj cosResp = CosNewDict(cosDoc, false, 0);
-      CosDictPut(cosPage2, ASAtomFromString("Resp"), cosResp);
-      CosDictPut(cosResp, ASAtomFromString("Target"), CosNewName(cosDoc, false, target));
-
-      PDPageRelease(pdPage);
     }
 
   HANDLER
+    return false;
   END_HANDLER
 
   return true;
-
 }

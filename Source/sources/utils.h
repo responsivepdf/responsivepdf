@@ -9,7 +9,7 @@ bool AddContentStream(CosObj stream, char** data, int * len);
 ASBool PDPageInsertForm(PDPage page, CosObj inFormObj, ASAtom name, ASAtom ocName);
 ASBool GetFormBBox(CosObj inFormObj, ASFixedRect* outBBox);
 
-bool CreatePagesWithCurrentContent(PDDoc pdDoc, ASAtom target);
+bool PrepareDesignWithCurrentContent(PDDoc pdDoc, ASAtom target, ASDouble zoom);
 
 
 
