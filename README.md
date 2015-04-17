@@ -1,2 +1,2 @@
 # responsivepdf
-Create PDF with responsive layout
+Adobe Acrobat plugin for creating PDF with responsive layout
