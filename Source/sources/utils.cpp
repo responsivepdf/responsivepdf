@@ -272,11 +272,47 @@ ASBool GetFormBBox(CosObj inFormObj, ASFixedRect* outBBox)
       return false;
 }
 
-bool PrepareDesignWithCurrentContent(PDDoc pdDoc, ASAtom target, ASDouble zoom)
+bool PrepareDesignWithContent(PDDoc pdDoc, ASAtom target, ASDouble zoom, bool thisFile)
 {
   DURING
     ASInt32 numPages = PDDocGetNumPages(pdDoc);
     CosDoc cosDoc = PDDocGetCosDoc(pdDoc);
+
+    bool closePDDoc2 = false;
+    PDDoc pdDoc2 = pdDoc;
+    if (thisFile == false)
+    {
+      AVOpenSaveDialogParamsRec dialogParams;
+      memset(&dialogParams, 0, sizeof(AVOpenSaveDialogParamsRec));
+      dialogParams.size = sizeof(AVOpenSaveDialogParamsRec);
+
+      ASPathName *pathNames = NULL;
+      AVArraySize numPathNames = 0;
+      ASPathName pathName = NULL;
+      ASFileSys fileSys = NULL;
+
+      //open new pddoc
+      ASBool result = AVAppOpenDialog(&dialogParams, &fileSys,  &pathNames, &numPathNames, NULL);
+      if (result && numPathNames == 1)
+      {
+        DURING
+          if (result)
+            pdDoc2 = PDDocOpen(pathNames[0], fileSys, NULL, true);
+        HANDLER
+          AVAlertNote("Error opening file");
+          E_RETURN(false);
+        END_HANDLER
+        ASFileSysReleasePath(fileSys, pathNames[0]);
+      }
+
+      ASInt32 numPages2 = PDDocGetNumPages(pdDoc2);
+      if (numPages != numPages2)
+      {
+        AVAlertNote("Number of pages does not match");
+        E_RETURN(false);
+      }
+    }
+
 
     CosObj cosRoot = CosDocGetRoot(cosDoc);
     CosObj cosResp = CosDictGet(cosRoot, ASAtomFromString("Resp"));
@@ -303,7 +339,13 @@ bool PrepareDesignWithCurrentContent(PDDoc pdDoc, ASAtom target, ASDouble zoom)
     for (int i = numPages - 1; i >= 0; i--)
     {
       //insert new page with the content of the original page
-      PDDocInsertPages(pdDoc, i, pdDoc, i, 1, 0, NULL, NULL, NULL, NULL);
+      PDDocInsertPages(pdDoc, i, pdDoc2, i, 1, 0, NULL, NULL, NULL, NULL);
+    }
+
+    if (pdDoc != pdDoc2)
+    {
+      PDDocClose(pdDoc2);
+      pdDoc2 = NULL;
     }
 
   HANDLER

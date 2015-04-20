@@ -31,13 +31,13 @@ ACCB1 void ACCB2 MyPluginCommand(void *clientData)
 
   if (ASAtomFromString(btnAddFromCurrent) == type)
   {
-    PrepareDesignWithCurrentContent(pdDoc, t_Mobile, .5);
+    PrepareDesignWithContent(pdDoc, t_Mobile, .5, true);
     return;
   }
 
   if (ASAtomFromString(btnAddFromFile) == type)
   {
-//    CreatePagesWithFile(pdDoc, t_Mobile, .5);
+    PrepareDesignWithContent(pdDoc, t_Mobile, .5, false);
     return;
   }
 
@@ -357,14 +357,14 @@ ACCB1 ASBool ACCB2 PluginInit(void)
     AVMenuItemSetComputeEnabledProc (menuItem, ASCallbackCreateProto(AVComputeEnabledProc, MyPluginIsEnabled), (void *)ASAtomFromString(btnAddFromFile));
     AVMenuAddMenuItem(commonMenu, menuItem, APPEND_MENUITEM);
     AVMenuItemRelease(menuItem);
-
+/*
     //delete layout
     menuItem = AVMenuItemNew ("Re&move Mobile Layout", btnDelete, NULL, true, NO_SHORTCUT, 0, NULL, gExtensionID);
     AVMenuItemSetExecuteProc (menuItem, ASCallbackCreateProto(AVExecuteProc, MyPluginCommand), (void*)ASAtomFromString(btnDelete));
     AVMenuItemSetComputeEnabledProc (menuItem, ASCallbackCreateProto(AVComputeEnabledProc, MyPluginIsEnabled), (void*)ASAtomFromString(btnDelete));
     AVMenuAddMenuItem(commonMenu, menuItem, APPEND_MENUITEM);
     AVMenuItemRelease(menuItem);
-
+*/
     //separator
     menuItem = AVMenuItemNew ("-", "RESP:Separator", NULL, true, NO_SHORTCUT, 0, NULL, gExtensionID);
     AVMenuAddMenuItem(commonMenu, menuItem, APPEND_MENUITEM);
