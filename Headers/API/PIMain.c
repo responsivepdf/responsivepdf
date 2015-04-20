@@ -69,10 +69,10 @@ DI_EXTERN_C DelayLoadInitPtr gDelayLoadInit = 0;
 DI_EXTERN_C DelayLoadTermPtr gDelayLoadTerm = 0;
 #endif
 
-#if DEBUG
+//#if DEBUG
 /* For special DURING/HANDLER catching */
 int gBadReturnCatcher;
-#endif
+//#endif
 
 
 HFT gAcroSupportHFT;

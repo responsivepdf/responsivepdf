@@ -350,7 +350,7 @@ ACCB1 ASBool ACCB2 PluginInit(void)
     AVMenuItemSetComputeEnabledProc (menuItem, ASCallbackCreateProto(AVComputeEnabledProc, MyPluginIsEnabled), (void *)ASAtomFromString(btnAddFromCurrent));
     AVMenuAddMenuItem(commonMenu, menuItem, APPEND_MENUITEM);
     AVMenuItemRelease(menuItem);
-
+    
     //new layout from file
     menuItem = AVMenuItemNew ("Add Mobile Layout From &File", btnAddFromFile, NULL, true, NO_SHORTCUT, 0, NULL, gExtensionID);
     AVMenuItemSetExecuteProc (menuItem, ASCallbackCreateProto(AVExecuteProc, MyPluginCommand), (void *)ASAtomFromString(btnAddFromFile));
