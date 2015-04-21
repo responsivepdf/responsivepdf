@@ -1,6 +1,4 @@
-#ifndef MAC_PLATFORM
-#include "PIHeaders.h"
-#endif
+#include "stdafx.h"
 
 #include "utils.h"
 #include <vector>
