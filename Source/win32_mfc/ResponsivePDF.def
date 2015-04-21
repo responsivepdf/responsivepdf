@@ -1,0 +1,6 @@
+; ResponsivePDF.def : Declares the module parameters for the DLL.
+
+LIBRARY
+
+EXPORTS
+  PlugInMain
